@@ -32,11 +32,6 @@ app.use("/guide",guideRouter)
 app.use("/femaleGuide",femaleGuideRouter)
 
 
-// app.use("/target",TargetRouter)
-
-//  const officersRouter = require("./routes/officer.js")
-
-//  app.use("/officer",officersRouter)
 
 
 app.listen(PORT,()=>{

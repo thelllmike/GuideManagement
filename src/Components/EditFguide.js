@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../Styles/GuideRegister.css";
 import axios from 'axios';
 
-export default class GuideRegister extends Component {
+export default class EditFGuide extends Component {
 
 	
     constructor(props) {
@@ -60,7 +60,25 @@ export default class GuideRegister extends Component {
             Email: e.target.value
         });
     }
-   
+    componentDidMount() {
+        // alert('edit id ' +this.props.match.params.id);
+        axios.get('http://localhost:4000/femaleGuide/edit/'+this.props.match.params.id)
+            .then(res => {
+                this.setState({
+                    fullName: res.data.fullName,
+                    location: res.data.location,
+                    languages: res.data.languages,
+                    description: res.data.description,
+                    contactNo: res.data.contactNo,
+                    Email: res.data.Email
+                 
+                   
+                });
+            })
+            .catch(function (error){
+                console.log("Can't Get Data");
+            })
+    }
    
     
     
@@ -78,8 +96,7 @@ export default class GuideRegister extends Component {
         };
 
                     if(this.state.contactNo.length === 10){
-                      
-                            axios.post('http://localhost:4000/guide/add',obj)
+                        axios.post("http://localhost:4000/femaleGuide/Update/"+this.props.match.params.id,obj)
                                 .then(res => {
                                     alert("add Successfully");
                                     this.setState({
@@ -111,7 +128,7 @@ export default class GuideRegister extends Component {
 		return (
 			<div className='GuideRegister'>
 				<form onSubmit={this.onSubmit}>
-					<h2>Male Guide</h2>
+					<h2>Update Account</h2>
 					<div className='form-row name'>
 						<div className='form-group'>
 							<p className="form-control">Guide's Full Name</p>
@@ -191,14 +208,7 @@ export default class GuideRegister extends Component {
 						</div>
 
 					</div>
-					{/* <div className='form-row conditions'>
-						<div className='form-group'>
-							<input type='checkbox' name='agree' id='agree' required/>
-							<p className="form-control">
-								I agree to all <a href='http://'>conditions.</a>
-							</p>
-						</div>
-					</div> */}
+				
 					<button type='submit'>
 						<Link to='/homepage'>add</Link>
 					</button>

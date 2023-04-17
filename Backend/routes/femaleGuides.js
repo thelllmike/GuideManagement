@@ -91,5 +91,12 @@ router.route("/get/:id").get(async (req, res) => {
 })
 
 
+router.route('/edit/:id').get(function (req,res){
+    let id = req.params.id;
+    femaleGuide.findById(id, function (err,register){
+        res.json(register);
+    });
+});
+
 
 module.exports = router;

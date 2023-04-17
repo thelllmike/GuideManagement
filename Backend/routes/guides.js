@@ -91,6 +91,30 @@ router.route("/get/:id").get(async (req, res) => {
 })
 
 
+//get all details
+// Define a route for getting all customers
+router.route('/getall').get(function(req, res) {
+    // Find all documents in the 'Customer' collection
+    guide.find(function(err, vehicle) {
+        if (err) {
+            // If there was an error finding customers, log the error to the console
+            console.log(err);
+            // If customers were found successfully, return them as a JSON response
+        } else {
+            res.json(vehicle);
+        }
+    });
+});
+
+router.route('/edit/:id').get(function (req,res){
+    let id = req.params.id;
+    guide.findById(id, function (err,register){
+        res.json(register);
+    });
+});
+
+
+
 
 
 module.exports = router;
